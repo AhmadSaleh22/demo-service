@@ -3,7 +3,7 @@ name: Deploy to Cloud Run
 on:
   push:
     branches:
-      - main  # ✅ Runs on push to `main`
+      - dev-asaleh  # ✅ Runs on push to `dev`
 
 env:
   PROJECT_ID: curamet-onboarding

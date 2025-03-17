@@ -112,8 +112,8 @@ This is a high level overview of the resources created by Terraform after a succ
 
 ## Suggested Next Steps
 
-- [ ] Set up a CI/CD pipeline with Cloud Build.
-- [ ] Set up a CI/CD pipeline  with GitHub Actions.
+- [/] Set up a CI/CD pipeline with Cloud Build.
+- [/] Set up a CI/CD pipeline  with GitHub Actions.
 - [/] Implement pull subscription.
 - [/] Showcase a scenario where the push trigger fails 5 times and is sent to a dead-letter topic.
 - [ ] Improve the way versioning is managed (currently, the version has to be manually updated in the **terraform.tfvars** file).
