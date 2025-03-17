@@ -1,0 +1,32 @@
+steps:
+  # 1️⃣ Build the Docker image with a proper tag
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'europe-docker.pkg.dev/$PROJECT_ID/am-curamet-repo/am-demo-service:${_SHORT_SHA}'
+      - '.'
+
+  # 2️⃣ Push the image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'europe-docker.pkg.dev/$PROJECT_ID/am-curamet-repo/am-demo-service:${_SHORT_SHA}'
+
+  # 3️⃣ Deploy to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'am-demo-service'
+      - '--image=europe-docker.pkg.dev/$PROJECT_ID/am-curamet-repo/am-demo-service:${_SHORT_SHA}'
+      - '--region=europe-west1'
+      - '--platform=managed'
+      - '--allow-unauthenticated'
+      - '--project=$PROJECT_ID'
+
+substitutions:
+  _SHORT_SHA: latest  # ✅ Default value for _SHORT_SHA
+
+images:
+  - 'europe-docker.pkg.dev/$PROJECT_ID/am-curamet-repo/am-demo-service:${_SHORT_SHA}'

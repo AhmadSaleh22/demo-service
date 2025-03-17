@@ -114,13 +114,13 @@ This is a high level overview of the resources created by Terraform after a succ
 
 - [ ] Set up a CI/CD pipeline with Cloud Build.
 - [ ] Set up a CI/CD pipeline  with GitHub Actions.
-- [ ] Implement pull subscription.
-- [ ] Showcase a scenario where the push trigger fails 5 times and is sent to a dead-letter topic.
+- [/] Implement pull subscription.
+- [/] Showcase a scenario where the push trigger fails 5 times and is sent to a dead-letter topic.
 - [ ] Improve the way versioning is managed (currently, the version has to be manually updated in the **terraform.tfvars** file).
-- [ ] Add lifecycle rules to the storage bucket.
-- [ ] Restrict the service account (demo service runner) to access only the specified secret rather than all secrets.
+- [/] Add lifecycle rules to the storage bucket.
+- [/] Restrict the service account (demo service runner) to access only the specified secret rather than all secrets.
 - [ ] Create a Cloud Scheduler job with Terraform to trigger an existing or a new endpoint. 
-- [ ] Use an alternative way to retrieve the secret from Secret Manager (instead of using the Secret Manager client library).
+- [/] Use an alternative way to retrieve the secret from Secret Manager (instead of using the Secret Manager client library).
 - [ ] Setup a vpc network for the cloud run service to improve security.
 - [ ] Enable Cloud Run invocations from only specific IP addresses.
 - [ ] Anything worth exploring or trying. 
