@@ -77,12 +77,23 @@ After making the necessary changes, to deploy the service and infrastructure, fo
     terraform init --backend-config="environments/dev/backend.conf"
     ```
 
-6. Plan the Terraform configuration to make sure all looks good:
+6. 🐳 Build & Push Docker Image to Google Artifact Registry (Cloud Run Compatible):
+    ```sh
+    docker buildx build --platform linux/amd64 \
+  -t europe-docker.pkg.dev/curamet-onboarding/am-curamet-repo/am-demo-service:0.0.3 \
+  . --push
+  ```
+  This command:
+    Builds the Docker image using buildx to target the linux/amd64 architecture (required for Cloud Run).
+    Tags the image with the version (0.0.3) and repository path in Google Artifact Registry.
+    Pushes the built image to europe-docker.pkg.dev for deployment on Cloud Run.
+
+7. Plan the Terraform configuration to make sure all looks good:
     ```sh
    terraform plan -var-file="environments/dev/terraform.tfvars" -no-color
     ```
    
-7. Apply the Terraform configuration:
+8. Apply the Terraform configuration:
     ```sh
     terraform apply -var-file="environments/dev/terraform.tfvars" -no-color
     ```
