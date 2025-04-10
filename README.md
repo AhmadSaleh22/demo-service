@@ -79,10 +79,8 @@ After making the necessary changes, to deploy the service and infrastructure, fo
 
 6. 🐳 Build & Push Docker Image to Google Artifact Registry (Cloud Run Compatible):
     ```sh
-    docker buildx build --platform linux/amd64 \
-  -t europe-docker.pkg.dev/curamet-onboarding/am-curamet-repo/am-demo-service:0.0.3 \
-  . --push
-  ```
+    docker buildx build --platform linux/amd64 \ -t europe-docker.pkg.dev/curamet-onboarding/am-curamet-repo/am-demo-service:0.0.3 \ . --push
+    ```
   This command:
     Builds the Docker image using buildx to target the linux/amd64 architecture (required for Cloud Run).
     Tags the image with the version (0.0.3) and repository path in Google Artifact Registry.
