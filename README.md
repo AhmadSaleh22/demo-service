@@ -78,12 +78,10 @@ After making the necessary changes, to deploy the service and infrastructure, fo
     ```
 
 6. 🐳 Build & Push Docker Image to Google Artifact Registry (Cloud Run Compatible):
-    ```sh
-    docker buildx build --platform linux/amd64 \ -t europe-docker.pkg.dev/curamet-onboarding/am-curamet-repo/am-demo-service:0.0.3 \ . --push
-    ```
+    <pre> ```bash docker buildx build --platform linux/amd64 \ -t europe-docker.pkg.dev/curamet-onboarding/am-curamet-repo/am-demo-service:0.0.8 \ . \ --push ``` </pre>
   This command:
     Builds the Docker image using buildx to target the linux/amd64 architecture (required for Cloud Run).
-    Tags the image with the version (0.0.3) and repository path in Google Artifact Registry.
+    Tags the image with the version (0.0.3) ** you can change the version based on your spicific version you need ** and repository path in Google Artifact Registry.
     Pushes the built image to europe-docker.pkg.dev for deployment on Cloud Run.
 
 7. Plan the Terraform configuration to make sure all looks good:
