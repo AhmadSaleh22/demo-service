@@ -28,7 +28,6 @@ export const pushTrigger = async (req: express.Request, res: express.Response) =
     logger.info("secret value: " + await getSecret(config.secretName), metadata);
 
 
-    // Generate a random file name and random content
     const randomFileName = `${generateRandomString(6)}.txt`;
     const randomContent = generateRandomString(50);
 

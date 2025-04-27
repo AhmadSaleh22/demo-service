@@ -1,0 +1,33 @@
+steps:
+  - name: gcr.io/cloud-builders/gcloud
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        gcloud auth configure-docker europe-docker.pkg.dev
+
+  - name: gcr.io/cloud-builders/docker
+    args:
+      [
+        "buildx",
+        "build",
+        "--platform=linux/amd64",
+        "--push",
+        "-t",
+        "europe-docker.pkg.dev/curamet-onboarding/am-curamet-repo/am-demo-service:$COMMIT_SHA",
+        "."
+      ]
+
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        gcloud run deploy am-demo-service \
+          --image=europe-docker.pkg.dev/curamet-onboarding/am-curamet-repo/am-demo-service:$COMMIT_SHA \
+          --region=europe-west1 \
+          --platform=managed \
+          --allow-unauthenticated
+
+images:
+  - 'europe-docker.pkg.dev/curamet-onboarding/am-curamet-repo/am-demo-service:$COMMIT_SHA'
