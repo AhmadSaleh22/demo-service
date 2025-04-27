@@ -1,32 +1,33 @@
 steps:
-  # 1️⃣ Build the Docker image with a proper tag
-  - name: 'gcr.io/cloud-builders/docker'
+  - name: gcr.io/cloud-builders/gcloud
+    entrypoint: bash
     args:
-      - 'build'
-      - '-t'
-      - 'europe-docker.pkg.dev/$PROJECT_ID/am-curamet-repo/am-demo-service:${_SHORT_SHA}'
-      - '.'
+      - -c
+      - |
+        gcloud auth configure-docker europe-docker.pkg.dev
 
-  # 2️⃣ Push the image to Artifact Registry
-  - name: 'gcr.io/cloud-builders/docker'
+  - name: gcr.io/cloud-builders/docker
     args:
-      - 'push'
-      - 'europe-docker.pkg.dev/$PROJECT_ID/am-curamet-repo/am-demo-service:${_SHORT_SHA}'
+      [
+        "buildx",
+        "build",
+        "--platform=linux/amd64",
+        "--push",
+        "-t",
+        "europe-docker.pkg.dev/curamet-onboarding/am-curamet-repo/am-demo-service:$COMMIT_SHA",
+        "."
+      ]
 
-  # 3️⃣ Deploy to Cloud Run
-  - name: 'gcr.io/cloud-builders/gcloud'
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: bash
     args:
-      - 'run'
-      - 'deploy'
-      - 'am-demo-service'
-      - '--image=europe-docker.pkg.dev/$PROJECT_ID/am-curamet-repo/am-demo-service:${_SHORT_SHA}'
-      - '--region=europe-west1'
-      - '--platform=managed'
-      - '--allow-unauthenticated'
-      - '--project=$PROJECT_ID'
-
-substitutions:
-  _SHORT_SHA: latest  # ✅ Default value for _SHORT_SHA
+      - -c
+      - |
+        gcloud run deploy am-demo-service \
+          --image=europe-docker.pkg.dev/curamet-onboarding/am-curamet-repo/am-demo-service:$COMMIT_SHA \
+          --region=europe-west1 \
+          --platform=managed \
+          --allow-unauthenticated
 
 images:
-  - 'europe-docker.pkg.dev/$PROJECT_ID/am-curamet-repo/am-demo-service:${_SHORT_SHA}'
+  - 'europe-docker.pkg.dev/curamet-onboarding/am-curamet-repo/am-demo-service:$COMMIT_SHA'
