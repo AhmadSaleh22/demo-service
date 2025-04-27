@@ -41,7 +41,7 @@ export const pushTrigger = async (req: express.Request, res: express.Response) =
 
     // do something with the data
 
-    return res.status(200).send(success(`${SUCCESS}: Done`, { ...metadata }));
+    return res.status(500).send(success(`${SUCCESS}: Done`, { ...metadata }));
   } catch (e: any) {
     const errorObject = castToObject(e);
     const metadata = { requestId: req.id, errorObject };
