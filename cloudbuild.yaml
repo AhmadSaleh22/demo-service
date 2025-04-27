@@ -1,3 +1,7 @@
+options:
+  logging: GCS_ONLY  # <- Use GCS storage, not only Cloud Logging
+  log_bucket: gs://curamet-onboarding-build-logs/
+
 steps:
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: bash
