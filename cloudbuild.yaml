@@ -32,6 +32,3 @@ steps:
           --region=europe-west1 \
           --platform=managed \
           --allow-unauthenticated
-
-images:
-  - 'europe-docker.pkg.dev/curamet-onboarding/am-curamet-repo/am-demo-service:$COMMIT_SHA'
